@@ -24,12 +24,16 @@ function App() {
   const addToDo = () => {
     setToDoId((prev) => prev + 1);
 
-    let data = {
-      id: todoId,
-      value: value,
-    };
+    if(value) {
+      let data = {
+        id: todoId,
+        value: value,
+      };
+  
+      setTodos([...todos, data]);
+    }
 
-    setTodos([...todos, data]);
+    
   };
 
   useEffect(() => {

@@ -18,8 +18,8 @@
 }
 
 .to-do-container {
-  width: 550px;
-  min-height: 200px;
+  width: 600px;
+  height: 550px;
   padding: 24px;
   position: absolute;
   border-radius: 8px;
@@ -29,7 +29,7 @@
   align-items: center;
   color: #fff;
   transition: all 0.5s;  
-  border: 2px solid #b7b7b7;
+  border: 2px solid #b7b7b7;  
 }
 
 .to-do-container:hover {
@@ -90,8 +90,33 @@
 .to-do-list {
   width: 100%;
   min-height: 80px;
+  max-height: 330px;
+  padding-right: 15px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  overflow-y: auto;
+}
+
+
+.to-do-list {
+  --sb-track-color: #E2E2E2;
+  --sb-thumb-color: #555554;
+  --sb-size: 7px;
+}
+
+.to-do-list::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+.to-do-list::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+.to-do-list::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+  
 }
