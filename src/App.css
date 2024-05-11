@@ -12,11 +12,6 @@
   font-family: "Montserrat";
 }
 
-.parent-hovered {
-  filter: blur(2px);
-  border: unset;
-}
-
 .to-do-container {
   width: 600px;
   height: 550px;
@@ -36,10 +31,6 @@
   border: 2px solid #fff;
 }
 
-.child-hovered {
-  z-index: 10; 
-}
-
 .title-and-input {
   width: 100%;
   height: 140px;
@@ -47,7 +38,6 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  border: 1px solid #fff;
 }
 
 .to-do-title {
@@ -102,6 +92,14 @@
   border: 1px solid #fff;
 }
 
+.add-input:valid {
+  background-color: transparent;
+}
+
+.add-input:focus {
+  outline: 1px solid #fff;
+}
+
 .add-button {
   width: 150px;
   height: 100%;
@@ -130,7 +128,6 @@
   justify-content: flex-start;
   align-items: flex-start;
   overflow-y: auto;
-  border: 1px solid #000;
 }
 
 

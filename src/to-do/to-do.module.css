@@ -11,6 +11,7 @@
 
 .checkBox {
   margin-left: 5px;
+  cursor: pointer;
 }
 
 .input {

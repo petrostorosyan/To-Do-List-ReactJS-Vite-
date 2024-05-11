@@ -5,19 +5,13 @@ import "@fontsource/montserrat/400.css";
 import ToDoInfo from "./to-do-info/info";
 
 function App() {
-  const [isHovered, setIsHovered] = useState(false);
   const [value, setValue] = useState("");
   const [todos, setTodos] = useState([]);
   const [todoId, setToDoId] = useState(1);
-  const [showRequired, setShowRequired] = useState(false)
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  const [showRequired, setShowRequired] = useState(false);
+  const [completedStatus, setCompletedStatus] = useState(0);
+  let checkedToDoStatus = undefined;
+ 
 
   const change = (e) => {
     if(e.target.value) {
@@ -35,6 +29,7 @@ function App() {
       let data = {
         id: todoId,
         value: value,
+        status: false,
       };
 
       setTodos([...todos, data]);     
@@ -42,35 +37,45 @@ function App() {
       setShowRequired(true);
     }
 
-  };
-
-  useEffect(() => {
-    console.log(todos, "todos");
-  }, [todos]);
+  };;
 
   const deleteToDo = (id) => {
-    const newArr = todos.filter((x) => x.id != id);
-    setTodos(newArr);
+    const afterDeletedTodos = todos.filter((x) => x.id != id);
+    setTodos(afterDeletedTodos);
   };
 
-  const ChangedToDo = (val, id) => {
-    let changedVal = todos.filter((x) => x.id == id);
-    changedVal = {
-      id: id,
-      value: val,
-    };
 
-    todos[id-1] = changedVal;
+  const ChangedToDo = (val, id) => {
+    setTodos((prevTodos) => prevTodos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, value: val };
+      }
+      return todo;
+    }));
+  };
+  
+  const toDostatus = (id, checked) => {
+    setTodos((prevTodos) => prevTodos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, status: checked };
+      }
+      return todo;
+    }));
+  };
+
+  const clearAll = (obj) => {
+    setTodos(obj);
   }
 
-  return (
-    // <div className={`app-container ${isHovered ? "parent-hovered": ""}`}>
+  useEffect(() => {
+    checkedToDoStatus = todos.filter((x) => x.status == true);
+    setCompletedStatus(checkedToDoStatus.length)
+  }, [todos])
+
+  return (   
     <div className="app-container">
       <div
-        // className={`to-do-container ${isHovered ? "child-hovered": ""}`}
         className="to-do-container"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <div className="title-and-input">
           <h2 className="to-do-title">TO-DO List</h2>
@@ -104,11 +109,12 @@ function App() {
                 changedValue={ChangedToDo}
                 value={item.value}
                 id={item.id}
+                status={toDostatus}
               />
             );
           })}
         </div>
-        <ToDoInfo />
+        <ToDoInfo totalTodos={todos} allClear={clearAll} completedTodosCount={completedStatus} />
       </div>
     </div>
   );

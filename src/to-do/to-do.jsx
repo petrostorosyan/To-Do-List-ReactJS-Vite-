@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./to-do.module.css";
 
-const ToDo = ({ value, id, callback, changedValue }) => {
+const ToDo = ({ value, id, callback, changedValue, status }) => {
   const [isReadOnly, setIsReadOnly] = useState(false);
   const [inputValue, setInputValue] = useState(value);
-  const [checked, setChecked] = useState(false); 
+  const [checked, setChecked] = useState(false);
   const inputRef = useRef();
 
   const changeReadOnly = (e) => {
-    console.log(e.target.value, "value");
     setIsReadOnly(true);
     inputRef.current.focus();
   };
@@ -26,17 +25,14 @@ const ToDo = ({ value, id, callback, changedValue }) => {
     setIsReadOnly(false)
   }
 
-  const check = (id) => {
-    setChecked(!checked); 
+  const handleSelet = (e) => {
+    setChecked(e.target.checked);
+    status(id, e.target.checked)
   }
-
-  useEffect(() => {
-    console.log(checked, 'checked');
-  }, [checked])
 
   return (
     <div className={styles.toDoContainer}>
-      <input type="checkbox" className={styles.checkBox} onChange={() => check(id)} />
+      <input type="checkbox" id={id} value={inputValue} className={styles.checkBox} onChange={handleSelet} />
       <input
         type="text"
         value={inputValue}
