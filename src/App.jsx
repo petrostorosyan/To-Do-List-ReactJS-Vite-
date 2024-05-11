@@ -42,26 +42,25 @@ function App() {
       setShowRequired(true);
     }
 
-
   };
 
-  // useEffect(() => {
-  //   console.log(todos, "todos");
-  // }, [todos]);
+  useEffect(() => {
+    console.log(todos, "todos");
+  }, [todos]);
 
   const deleteToDo = (id) => {
     const newArr = todos.filter((x) => x.id != id);
     setTodos(newArr);
   };
 
-  const ChangedToDo = (val) => {
-    console.log(val, 'newVal');
-    let data = {
-      id: todoId,
+  const ChangedToDo = (val, id) => {
+    let changedVal = todos.filter((x) => x.id == id);
+    changedVal = {
+      id: id,
       value: val,
     };
 
-    setTodos((prev) => [...prev, data]);
+    todos[id-1] = changedVal;
   }
 
   return (
