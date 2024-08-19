@@ -34,7 +34,7 @@ function App() {
 
       setTodos([...todos, data]);     
     } else {
-      setShowRequired(true);
+      setShowRequired(true)
     }
 
   };;
